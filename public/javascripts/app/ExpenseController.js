@@ -7,11 +7,6 @@ function ExpenseCtrl($scope, Expense){
 	window.ex = Expense;
 	$scope.expenses = [];
 	
-	// $http.get('/expenses').success(function(data) {
-	//     $scope.expenses = data;
-	// });
-
-	
 	function getExpenses(){
 		$scope.expenses = Expense.query()	
 	}
@@ -27,22 +22,27 @@ function ExpenseCtrl($scope, Expense){
 	}
 
 	$scope.addExpense =  function (newExpense){
-		var expense = {
-			item : newExpense.item,
-			unit : newExpense.unit,
-			quantity : newExpense.quantity,
-			price : newExpense.price,
-			purchasedDate : newExpense.purchasedDate,
-			currency : "GhC"
+		if (newExpense["id"]){
+			Expense.update(newExpense, function (){
+				getExpenses();
+				$scope.clear();
+			});
+			
+		}else {
+			var expense =  angular.copy(newExpense);
+			var _exp = new Expense(expense);
+			_exp.$save(function (){
+				//fetch fresh items
+				getExpenses();
+				$scope.clear();
+			});
 		}
-		var _exp = new Expense(expense);
-		_exp.$save(function (){
-			//fetch fresh items
-			getExpenses();
-		});
-		newExpense = {};
 	}
 
+	/**
+	 * itemRemove removes an item from the collection
+	 * @param  {int} index 
+	 */
 	$scope.itemRemove =  function (index){
 		var expense = $scope.expenses[index];
 		console.log(expense)
@@ -50,11 +50,17 @@ function ExpenseCtrl($scope, Expense){
 		_exp.$delete(function (){
 			getExpenses()
 		});
-		// Expense.remove({ id : expense:id});
 	}
 
+	/**
+	 * Prepare the item for editing by making a copy that way 
+	 * it is not bound enabling us to save on the server before
+	 * refreshing the grid
+	 * @param  {Object} expense [the object to be edited]
+	 * @return {[type]}
+	 */
 	$scope.itemEdit =  function (expense){
-		$scope.newExpense = expense
+		$scope.newExpense = angular.copy( expense );
 	}
 
 	$scope.clear =  function (){

@@ -17,7 +17,6 @@ var expenses = [
 
 //returns all expenses as an array
 exports.getExpenses =  function (res, res){
-		
 	res.send(expenses);
 }
 
@@ -40,6 +39,27 @@ exports.addExpense = function (req, res){
 	res.send(req.body)
 }
 
+
+exports.updateExpense =  function (req, res){
+	//todo : add validation to all methods
+	var expense =  req.body
+	var id =  req.params["id"];
+	var currentIndex = -1;
+	expenses.filter(function (n){
+		if(n["id"] == id){
+			currentIndex =  expenses.indexOf(n);
+		}
+	});
+
+	if(currentIndex > -1){
+		expenses[currentIndex] = expense
+		res.send("Expense Updated")
+	}else {
+		res.send("No such entry exists for updating")
+	}
+
+}
+
 //delete an epense object from the list of expenses
 exports.deleteExpense =  function (req, res){
 	var id =  req.params["id"];
@@ -56,6 +76,4 @@ exports.deleteExpense =  function (req, res){
 	}else {
 		res.send("No such entry exists for deletion")
 	}
-
-	
 }

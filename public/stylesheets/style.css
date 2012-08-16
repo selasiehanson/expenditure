@@ -3,12 +3,13 @@ body {
 	padding-bottom: 40px;
 	/*background: url("../images/fabric_plaid.png");*/
 }
+
 .sidebar-nav {
 	padding: 9px 0;
 }
 
 .row-number-item , .action-item {
-	width : 20px;
+	width : 35px;
 }
 
 .form-actions {
@@ -22,4 +23,8 @@ body {
 
 legend span {
 	padding-left: 45px;
+}
+
+.action_icon:hover {
+	cursor: pointer;
 }

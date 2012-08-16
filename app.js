@@ -41,10 +41,13 @@ app.register('.html', {
 
 // Routes
 app.get('/', routes.index);
+
 app.get('/expenses', routes.getExpenses);
 app.get('/expenses/:id', routes.getExpense);
 app.post('/expenses', routes.addExpense);
+app.put("/expenses/:id", routes.updateExpense);
 app.delete("/expenses/:id", routes.deleteExpense);
+
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

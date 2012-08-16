@@ -101,9 +101,12 @@
 					        <!-- <button class='btn' type='button'> <i class='icon icon-th-large'></i> </button> -->
 					      </div>
 					    </div>
+					    <div>
+					    	<input type="hidden" name="id" ng-model="newExpense.id">
+					    </div>
 					    <div class="form-actions">
 					    	<button type='submit' class='btn btn-primary'  ng-click='addExpense(newExpense)'> 
-					    	<i class="icon icon-plus-sign"></i> Add Expense
+					    	<i class="icon icon-plus-sign"></i> Save Expense
 					    	</button>
 					    	<button ng-click='clear()' type='submit' class='btn'>
 					    		<i class='icon icon-remove'></i>
@@ -124,7 +127,7 @@
 						<th>Unit</th>
 						<th>Price</th>
 						<th class='action-item'></th>
-						<th class='action-item'></th>
+						<!-- <th class='action-item'></th> -->
 					</tr>
 					<tr ng-repeat="expense in expenses">
 						<td> {{$index + 1}} </td>
@@ -132,13 +135,16 @@
 						<td> {{expense.quantity}}  </td>
 						<td> {{expense.unit}}   </td>
 						<td> {{expense.price }} </td>
-						<td ng-click="itemEdit(expense)"> <i class='icon  icon-pencil'></td> </td>
-						<td ng-click="itemRemove($index)"> <i class='icon icon-remove'></i></td>
+						<td> 
+							<i ng-click="itemEdit(expense)" class='icon  icon-pencil action_icon'></i> 
+							<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+						</td>
+						
 					</tr>
 					<tr>
 						<td colspan='2'>Total:</td>
 						<td colspan='2'>{{expenses.length}} items purchased for </td>
-						<td colspan='3'>{{totalExpense()}}</td>
+						<td colspan='2'>{{totalExpense()}}</td>
 					</tr>
 				</table>
          		</fieldset>
