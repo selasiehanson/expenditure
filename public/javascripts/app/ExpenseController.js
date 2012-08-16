@@ -32,18 +32,25 @@ function ExpenseCtrl($scope, Expense){
 			unit : newExpense.unit,
 			quantity : newExpense.quantity,
 			price : newExpense.price,
+			purchasedDate : newExpense.purchasedDate,
 			currency : "GhC"
 		}
 		var _exp = new Expense(expense);
 		_exp.$save(function (){
 			//fetch fresh items
 			getExpenses();
-		})
+		});
 		newExpense = {};
 	}
 
 	$scope.itemRemove =  function (index){
-		$scope.expenses.splice(index, 1);
+		var expense = $scope.expenses[index];
+		console.log(expense)
+		var _exp =  new Expense(expense);
+		_exp.$delete(function (){
+			getExpenses()
+		});
+		// Expense.remove({ id : expense:id});
 	}
 
 	$scope.itemEdit =  function (expense){
