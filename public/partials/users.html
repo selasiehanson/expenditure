@@ -1,0 +1,79 @@
+<div class="row-fluid" ng-controller="UserCtrl">
+    <div class="span5">
+      	<form class="form-horizontal cust-form">
+		  	<fieldset>
+			    <legend> <span>Add New User</span> </legend>
+			    <div class="control-group">
+			      <label class="control-label" for="firstName" >First Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUser.firstName" id="firstName">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="lastName" >Last Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUser.lastName" id="lastName">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="userName" >User Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUser.userName" id="userName">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="password" >Password Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUser.password" id="password">
+			      </div>
+			    </div>
+			  
+			    <div>
+			    	<input type="hidden" name="id" ng-model="newUser.id">
+			    </div>
+			    <div class="form-actions">
+			    	<button type='submit' class='btn btn-primary'  ng-click='addUser(newUser)'> 
+			    	<i class="icon icon-plus-sign"></i> Save User
+			    	</button>
+			    	<button ng-click='clear()' type='submit' class='btn'>
+			    		<i class='icon icon-remove'></i>
+			    		Clear
+			    	</button>
+			    </div>
+		  	</fieldset>
+		</form>
+ 	</div>
+ 	<div class='span6'>
+ 		<fieldset>
+ 			<legend>Users</legend>
+ 			<table class="table table-bordered table-striped">
+			<tr>
+				<th class='row-number-item'>#</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Username</th>
+				<th class='action-item'></th>
+				
+			</tr>
+			<tr ng-repeat="user in users">
+				<td> {{$index + 1}} </td>
+				<td> {{user.firstName}}  </td> 
+				<td> {{user.lastName}}  </td>
+				<td> {{user.userName}}   </td>
+				<td> 
+					<i ng-click="itemEdit(user)" class='icon  icon-pencil action_icon'></i> 
+					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan='2'><span class='pull-right'>Total Number of Users : </td>
+				<td colspan='3'>
+					<span class='label label-success'>	{{users.length}}  </span>
+				</td>
+				
+			</tr>
+		</table>
+ 		</fieldset>
+ 	</div>
+ </div><!--/row-->
