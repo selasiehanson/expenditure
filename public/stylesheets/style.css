@@ -28,3 +28,59 @@ legend span {
 .action_icon:hover {
 	cursor: pointer;
 }
+
+.username{
+	color : #08C;;
+}
+
+
+footer {
+	text-align: center;
+}
+
+footer p {
+	font-size: 10px;
+}
+
+.list_view {
+	padding-top: 20px;
+	/*background-image: url('../images/pbg.png');*/
+	/*background: url('../images/table_back.png') #292E34;*/
+}
+
+.list_view li{
+	list-style: none;
+	padding-top: 15px;
+}
+
+.list_view .accordion a{
+	text-decoration : none;
+	/*color: #2B4271;*/
+	/*color: #999;*/
+	font-weight:bold;
+	
+}
+
+.list_view .accordion .accordion-heading {
+	background: #2C2C2C;
+}
+.list_view .accordion .accordion-heading a{
+	color: #999;
+}
+.list_view .accordion .active-head a {
+	color : white ;
+}
+
+.list_view .accordion .in 
+.list_view .accordion .accordion-inner a{
+	/*color: #08C;*/
+	color : #888;
+}
+
+.list_view .accordion .accordion-inner {
+	background: white
+}
+
+.list_view li i{
+	padding-right : 5px;
+}

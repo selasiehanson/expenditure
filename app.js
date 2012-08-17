@@ -2,21 +2,30 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express')
-  , routes = require('./routes');
-
+var routes = require('./routes');
+var security =  require("./routes/security");
+var MemStore =  require("connect/lib/middleware/session/memory")
 var app = module.exports = express.createServer();
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   //app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
+  
   app.use(express.static(__dirname + '/public'));
+  app.use(express.cookieParser());
+  app.use(express.session(
+    {
+      secret : "some secret",
+      store : MemStore ({
+                reapInterval : 60000 * 10
+              })
+    })
+  );
+  app.use(app.router);
 });
 
 // disable layout
@@ -39,8 +48,18 @@ app.register('.html', {
     }
 });
 
+
+//routes middleware
+function requiresLogin(req,res,next){
+  if(req.session.user){
+    next();
+  }else {
+    res.redirect("/login");
+  }
+}
+
 // Routes
-app.get('/', routes.index);
+app.get('/', requiresLogin ,routes.index);
 
 app.get('/expenses', routes.getExpenses);
 app.get('/expenses/:id', routes.getExpense);
@@ -48,6 +67,15 @@ app.post('/expenses', routes.addExpense);
 app.put("/expenses/:id", routes.updateExpense);
 app.delete("/expenses/:id", routes.deleteExpense);
 
+//session related routes
+app.get("/login",security.getLoginPage); 
+app.post("/login",security.login);
+app.get('/logout', security.logout);
+
+//this is to test the sessions
+app.get("/page", requiresLogin, function (req, res){
+  res.send("Welcome to page")
+});
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
