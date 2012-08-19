@@ -2,7 +2,7 @@
     <div class="span5">
       	<form class="form-horizontal cust-form">
 		  	<fieldset>
-			    <legend> <span>Add New User</span> </legend>
+			    <legend> <span> {{title}} </span> </legend>
 			    <div class="control-group">
 			      <label class="control-label" for="firstName" >First Name:</label>
 			      <div class="controls">
@@ -22,9 +22,15 @@
 			      </div>
 			    </div>
 			    <div class="control-group">
-			      <label class="control-label" for="password" >Password Name:</label>
+			      <label class="control-label" for="password" >Password :</label>
 			      <div class="controls">
-			        <input type="text" class="input-xlarge" ng-model="newUser.password" id="password">
+			        <input type="password" class="input-xlarge" ng-model="newUser.password" id="password">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="passwordConfirm" >Confirm Password :</label>
+			      <div class="controls">
+			        <input type="password" class="input-xlarge" ng-model="newUser.passwordConfirm" id="passwordConfirm">
 			      </div>
 			    </div>
 			  
@@ -33,7 +39,7 @@
 			    </div>
 			    <div class="form-actions">
 			    	<button type='submit' class='btn btn-primary'  ng-click='addUser(newUser)'> 
-			    	<i class="icon icon-plus-sign"></i> Save User
+			    	<i class="icon icon-plus-sign"></i> {{statusText}}
 			    	</button>
 			    	<button ng-click='clear()' type='submit' class='btn'>
 			    		<i class='icon icon-remove'></i>

@@ -5,6 +5,7 @@
 var express = require('express')
 var routes = require('./routes');
 var security =  require("./routes/security");
+var userRoutes =  require("./routes/users");
 var MemStore =  require("connect/lib/middleware/session/memory")
 var app = module.exports = express.createServer();
 
@@ -61,9 +62,10 @@ function requiresLogin(req,res,next){
 // Routes
 app.get('/', requiresLogin ,routes.index);
 
+//expenditure 
 app.get('/expenses', routes.getExpenses);
 app.get('/expenses/:id', routes.getExpense);
-app.post('/expenses', routes.addExpense);
+app.post('/expenses', routes.createExpense);
 app.put("/expenses/:id", routes.updateExpense);
 app.delete("/expenses/:id", routes.deleteExpense);
 
@@ -71,6 +73,16 @@ app.delete("/expenses/:id", routes.deleteExpense);
 app.get("/login",security.getLoginPage); 
 app.post("/login",security.login);
 app.get('/logout', security.logout);
+app.get("/profile", security.getProfile)
+
+//users
+app.get("/users", userRoutes.getUsers);
+app.get("/users/:id",userRoutes.getUser);
+app.post("/users", userRoutes.createUser);
+app.put("/users", userRoutes.updateUser);
+app.delete("/users", userRoutes.deleteUser);
+
+
 
 //this is to test the sessions
 app.get("/page", requiresLogin, function (req, res){

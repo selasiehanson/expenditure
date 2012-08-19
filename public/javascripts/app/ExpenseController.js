@@ -1,6 +1,6 @@
 function ExpenseCtrl($scope, Expense){
 
-	$("#purchasedDate").datepicker({
+	$("#dp3").datepicker({
 		format : "dd-mm-yyyy"
 	})
 
@@ -62,11 +62,17 @@ function ExpenseCtrl($scope, Expense){
 	$scope.itemEdit =  function (expense){
 		$scope.newExpense = angular.copy( expense );
 		$scope.statusText = "Update Expense";
+		$scope.title = "Update Expense";
 	}
 
 	$scope.clear =  function (){
 		$scope.newExpense = {};
 		$scope.statusText = "Add Expense";
+		$scope.title = "Add New Expense";
+	}
+
+	$scope.todaysDate =  function (){
+		return new Date();
 	}
 
 	$scope.clear();

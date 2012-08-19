@@ -20,3 +20,7 @@ exports.logout = function (req, res){
   delete req.session.user;
   res.redirect("/login")
 }
+
+exports.getProfile =  function (req, res){
+  res.send(req.session.user);
+}

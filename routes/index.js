@@ -31,7 +31,7 @@ exports.getExpense =  function(req, res){
 }
 
 //add a new expense to the collection
-exports.addExpense = function (req, res){
+exports.createExpense = function (req, res){
 	//try cleaning up first
 	var e = req.body;
 	e["id"] = expenses.length;
