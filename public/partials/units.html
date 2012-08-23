@@ -1,0 +1,69 @@
+<div class="row-fluid" ng-controller="UnitCtrl">
+    <div class="span5">
+      	<form class="form-horizontal cust-form">
+		  	<fieldset>
+			    <legend> <span> {{title}} </span> </legend>
+			    <div class="control-group">
+			      <label class="control-label" for="name" >Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUnit.name" id="name">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="symbol" >Symbol:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUnit.symbol" id="symbol">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="description">Description:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newUnit.description" id="description">
+			      </div>
+			    </div>
+			    <div>
+			    	<input type="hidden" name="_id" ng-model="newUnit._id">
+			    </div>
+			    <div class="form-actions">
+			    	<button type='submit' class='btn btn-primary'  ng-click='addUnit(newUnit)'> 
+			    	<i class="icon icon-plus-sign"></i> {{statusText}}
+			    	</button>
+			    	<button ng-click='clear()' type='submit' class='btn'>
+			    		<i class='icon icon-remove'></i>
+			    		Clear
+			    	</button>
+			    </div>
+		  	</fieldset>
+		</form>
+ 	</div>
+ 	<div class='span6'>
+ 		<fieldset>
+ 			<legend>Units</legend>
+ 			<table class="table table-bordered table-striped">
+			<tr>
+				<th class='row-number-item'>#</th>
+				<th>Unit</th>
+				<th>Symbol</th>
+				<th>Description</th>
+				<th class='action-item'></th>
+			</tr>
+			<tr ng-repeat="unit in units">
+				<td> {{$index + 1}} </td>
+				<td> {{unit.name}}  </td> 
+				<td> {{unit.symbol}}  </td>
+				<td> {{unit.description}}   </td>
+				<td> 
+					<i ng-click="itemEdit(unit)" class='icon  icon-pencil action_icon'></i> 
+					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'><span class='pull-right'><strong> Totals : </strong></td>
+				<td colspan='3'>
+					<span class='label label-success'>	{{units.length}}  </span>
+				</td>
+			</tr>
+		</table>
+ 		</fieldset>
+ 	</div>
+ </div><!--/row-->

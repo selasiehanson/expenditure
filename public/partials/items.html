@@ -1,0 +1,72 @@
+<div class="row-fluid" ng-controller="ItemCtrl">
+    <div class="span5">
+      	<form class="form-horizontal cust-form">
+		  	<fieldset>
+			    <legend> <span> {{title}} </span> </legend>
+			    <div class="control-group">
+			      <label class="control-label" for="name" >Name:</label>
+			      <div class="controls">
+			        <input type="text" class="input-xlarge" ng-model="newItem.name" id="name">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="symbol" >Unit:</label>
+			      <div class="controls">
+			        <select class="span3"  ng-model="newItem.unit" id="unit" 
+			        	ng-options='unit.name for unit in units'></select>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="description">Category:</label>
+			      <div class="controls">
+			        <select class="span3"  ng-model="newItem.category" id="category" 
+			        	ng-options='cat.name for cat in categories'>
+			        </select>
+			      </div>
+			    </div>
+			    <div>
+			    	<input type="hidden" name="_id" ng-model="newItem._id">
+			    </div>
+			    <div class="form-actions">
+			    	<button type='submit' class='btn btn-primary'  ng-click='addItem(newItem)'> 
+			    	<i class="icon icon-plus-sign"></i> {{statusText}}
+			    	</button>
+			    	<button ng-click='clear()' type='submit' class='btn '>
+			    		<i class='icon icon-remove'></i>
+			    		Clear
+			    	</button>
+			    </div>
+		  	</fieldset>
+		</form>
+ 	</div>
+ 	<div class='span6'>
+ 		<fieldset>
+ 			<legend>Items</legend>
+ 			<table class="table table-bordered table-striped">
+			<tr>
+				<th class='row-number-item'>#</th>
+				<th>Name</th>
+				<th>Unit</th>
+				<th>Category</th>
+				<th class='action-item'></th>
+			</tr>
+			<tr ng-repeat="item in items">
+				<td> {{$index + 1}} </td>
+				<td> {{item.name}}  </td> 
+				<td> {{item.unit.name}}  </td>
+				<td> {{item.category.name}}   </td>
+				<td> 
+					<i ng-click="itemEdit(item,$index)" class='icon  icon-pencil action_icon'></i> 
+					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'><span class='pull-right'> <strong> Totals : </strong> </td>
+				<td colspan='3'>
+					<span class='label label-success'>	{{items.length}}  </span>
+				</td>
+			</tr>
+		</table>
+ 		</fieldset>
+ 	</div>
+ </div><!--/row-->

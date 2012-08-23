@@ -1,16 +1,24 @@
-function ExpenseCtrl($scope, Expense){
+function ExpenseCtrl($scope, Expense, $http, helper){
 
+	var format = "dd-mm-yyyy";
+	var pDate = $("#dp3").find("input");
 	$("#dp3").datepicker({
-		format : "dd-mm-yyyy"
-	})
+		format : format
+	});
+	
 
-	window.ex = Expense;
+	window.sc = $scope;
 	$scope.expenses = [];
 	
 	function getExpenses(){
 		$scope.expenses = Expense.query()	
 	}
 	
+	function getItems(){
+		$http.get('/items').success(function(res){
+			$scope.items = res;
+		});
+	}
 	$scope.totalExpense = function (){
 		var total = 0;
 
@@ -22,6 +30,8 @@ function ExpenseCtrl($scope, Expense){
 	}
 
 	$scope.addExpense =  function (newExpense){
+		var date = pDate.val();
+		newExpense.purchasedDate = date;
 		if (newExpense["id"]){
 			Expense.update(newExpense, function (){
 				getExpenses();
@@ -45,10 +55,10 @@ function ExpenseCtrl($scope, Expense){
 	 */
 	$scope.itemRemove =  function (index){
 		var expense = $scope.expenses[index];
-		console.log(expense)
+		expense["id"] =  expense["_id"];
 		var _exp =  new Expense(expense);
 		_exp.$delete(function (){
-			getExpenses()
+			getExpenses();
 		});
 	}
 
@@ -59,8 +69,14 @@ function ExpenseCtrl($scope, Expense){
 	 * @param  {Object} expense [the object to be edited]
 	 * @return {[type]}
 	 */
-	$scope.itemEdit =  function (expense){
+	$scope.itemEdit =  function (expense, $index){
+		console.log(expense.purchasedDate)
+		var date = helper.formartDate(format,expense.purchasedDate);
+		pDate.val(date.toString());
 		$scope.newExpense = angular.copy( expense );
+		var itemIndex =  helper.getSelectIndex(expense.item, $scope.items);
+		$scope.newExpense.item = $scope.items[itemIndex];
+
 		$scope.statusText = "Update Expense";
 		$scope.title = "Update Expense";
 	}
@@ -69,13 +85,17 @@ function ExpenseCtrl($scope, Expense){
 		$scope.newExpense = {};
 		$scope.statusText = "Add Expense";
 		$scope.title = "Add New Expense";
+		$scope.todaysDate()
 	}
 
 	$scope.todaysDate =  function (){
-		return new Date();
+		var today  = helper.formartDate(format,new Date());
+		pDate.val(today);
 	}
 
 	$scope.clear();
 	getExpenses();
+	getItems();
+	$scope.todaysDate();
 
 }

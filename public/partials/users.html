@@ -35,7 +35,7 @@
 			    </div>
 			  
 			    <div>
-			    	<input type="hidden" name="id" ng-model="newUser.id">
+			    	<input type="hidden" name="_id" ng-model="newUser._id">
 			    </div>
 			    <div class="form-actions">
 			    	<button type='submit' class='btn btn-primary'  ng-click='addUser(newUser)'> 
@@ -73,7 +73,7 @@
 				
 			</tr>
 			<tr>
-				<td colspan='2'><span class='pull-right'>Total Number of Users : </td>
+				<td colspan='2'><span class='pull-right'><strong> Totals Number of Users: </strong> </td>
 				<td colspan='3'>
 					<span class='label label-success'>	{{users.length}}  </span>
 				</td>

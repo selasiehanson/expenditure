@@ -1,97 +1,93 @@
 <div class="row-fluid" ng-controller="ExpenseCtrl">
-            <div class="span5">
-              	<form class="form-horizontal cust-form">
-				  	<fieldset>
-					    <legend> <span> {{title}}</span> </legend>
-					    <div class="control-group">
-					      <label class="control-label" for="item" >Item:</label>
-					      <div class="controls">
-					        <input type="text" class="input-xlarge" ng-model="newExpense.item" id="item">
-					      </div>
-					    </div>
-					    <div class="control-group">
-					      <label class="control-label" for="quantity" >Quantity:</label>
-					      <div class="controls">
-					        <input type="number" class="input-xlarge" ng-model="newExpense.quantity" id="quantity">
-					        </div>
-					    </div>
-					    <div class="control-group">
-					      <label class="control-label" for="unit" >Unit:</label>
-					      <div class="controls">
-					        <input type="text" class="input-xlarge" ng-model="newExpense.unit" id="unit">
-					      </div>
-					    </div>
-					    <div class="control-group">
-					      <label class="control-label" for="price">Price:</label>
-					      <div class="controls">
-					        <input type="number" class="input-xlarge" ng-model="newExpense.price" id="price">
-					      </div>
-					    </div>
-					    <div class='control-group'>
-					    	<label class="control-label" for="purchasedDate">Date of Purchase:</label>
-					    	<div class="controls">
-					    		<div class="input-append date" id="dp3" data-date="{{todaysDate()}}" data-date-format="dd-mm-yyyy">
-									<input ng-model="newExpense.purchasedDate" id="purchasedDate" class="span3" size="16" type="text"  readonly=""><span class="add-on"><i class="icon-th"></i></span>
-							  </div>
-					    	</div>
-					    		
-					    </div>
-					    <div>
-					    	<input type="hidden" name="id" ng-model="newExpense.id">
-					    </div>
-					    <div class="form-actions">
-					    	<button type='submit' class='btn btn-primary'  ng-click='addExpense(newExpense)'> 
-					    	<i class="icon icon-plus-sign"></i> {{statusText}}
-					    	</button>
-					    	<button ng-click='clear()' type='submit' class='btn'>
-					    		<i class='icon icon-remove'></i>
-					    		Clear
-					    	</button>
-					    </div>
-				  	</fieldset>
-				</form>
-         	</div>
-         	<div class='span6'>
-         		<fieldset>
-         			<legend>History of Expenditure</legend>
-         			<table class="table table-bordered table-striped">
-					<tr>
-						<th class='row-number-item'>#</th>
-						<th>Item</th>
-						<th>Quantity</th>
-						<th>Unit</th>
-						<th>Price</th>
-						<th class='action-item'></th>
-						<!-- <th class='action-item'></th> -->
-					</tr>
-					<tr ng-repeat="expense in expenses">
-						<td> {{$index + 1}} </td>
-						<td> {{expense.item}}  </td> 
-						<td> 
-							<span class='label label-info'> {{expense.quantity}}  </span>
-						</td>
-						<td> {{expense.unit}}   </td>
-						<td> 
-							<span class='label label-success'>{{expense.price }}</span>  
-						</td>
-						<td> 
-							<i ng-click="itemEdit(expense)" class='icon  icon-pencil action_icon'></i> 
-							<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
-						</td>
-						
-					</tr>
-					<tr>
-						<td colspan='2'> <span class='pull-right'>Total:</span> </td>
-						<td colspan='2'> <span class='pull-right'> 
-							<span class='label label-info'>
-								{{expenses.length}} 	
-							</span>  items purchased for 
-						</td>
-						<td colspan='2'>
-							<span class='label label-success'>	{{totalExpense()}} </span>
-						</td>
-					</tr>
-				</table>
-         		</fieldset>
-         	</div>
-          </div><!--/row-->
+    <div class="span5">
+      	<form class="form-horizontal cust-form">
+		  	<fieldset>
+			    <legend> <span> {{title}}</span> </legend>
+			    <div class="control-group">
+			      <label class="control-label" for="item" >Item:</label>
+			      <div class="controls">
+			        <select class='span3' ng-model="newExpense.item" id="item" 
+			        ng-options='item.name for item in items'></select>
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <label class="control-label" for="quantity" >Quantity:</label>
+			      <div class="controls">
+			        <input type="number" class="span3" ng-model="newExpense.quantity" id="quantity">
+			        </div>
+			    </div>
+			    
+			    <div class="control-group">
+			      <label class="control-label" for="price">Price:</label>
+			      <div class="controls">
+			        <input type="number" class="span3" ng-model="newExpense.price" id="price">
+			      </div>
+			    </div>
+			    <div class='control-group'>
+			    	<label class="control-label" for="purchasedDate">Date of Purchase:</label>
+			    	<div class="controls">
+			    		<div class="input-append date" id="dp3" data-date="" data-date-format="dd-mm-yyyy">
+							<input ng-model="newExpense.purchasedDate" id="purchasedDate" class="span2" size="16" type="text"  readonly=""><span class="add-on"><i class="icon-th"></i></span>
+					  </div>
+			    	</div>
+			    	
+			    </div>
+			    <div>
+			    	<input type="hidden" name="id" ng-model="newExpense.id">
+			    </div>
+			    <div class="form-actions">
+			    	<button type='submit' class='btn btn-primary'  ng-click='addExpense(newExpense)'> 
+			    	<i class="icon icon-plus-sign"></i> {{statusText}}
+			    	</button>
+			    	<button ng-click='clear()' type='submit' class='btn'>
+			    		<i class='icon icon-remove'></i>
+			    		Clear
+			    	</button>
+			    </div>
+		  	</fieldset>
+		</form>
+ 	</div>
+ 	<div class='span6'>
+ 		<fieldset>
+ 			<legend>History of Expenditure</legend>
+ 			<table class="table table-bordered table-striped">
+			<tr>
+				<th class='row-number-item'>#</th>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Unit</th>
+				<th>Price</th>
+				<th class='action-item'></th>
+				<!-- <th class='action-item'></th> -->
+			</tr>
+			<tr ng-repeat="expense in expenses">
+				<td> {{$index + 1}} </td>
+				<td> {{expense.item.name}}  </td> 
+				<td> 
+					<span class='label label-info'> {{expense.quantity}}  </span>
+				</td>
+				<td> {{expense.item.unit}}   </td>
+				<td> 
+					<span class='label label-success'>{{expense.price }}</span>  
+				</td>
+				<td> 
+					<i ng-click="itemEdit(expense)" class='icon  icon-pencil action_icon'></i> 
+					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan='2'> <span class='pull-right'>Total:</span> </td>
+				<td colspan='2'> <span class='pull-right'> 
+					<span class='label label-info'>
+						{{expenses.length}} 	
+					</span>  items purchased for 
+				</td>
+				<td colspan='2'>
+					<span class='label label-success'>	{{totalExpense()}} </span>
+				</td>
+			</tr>
+		</table>
+ 		</fieldset>
+ 	</div>
+</div><!--/row-->

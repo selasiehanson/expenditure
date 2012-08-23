@@ -1,13 +1,21 @@
-
 /**
  * Module dependencies.
  */
 var express = require('express')
+//routes
 var routes = require('./routes');
 var security =  require("./routes/security");
 var userRoutes =  require("./routes/users");
+var unitRoutes =  require("./routes/units");
+var categoryRoutes = require("./routes/category");
+var itemRoutes = require("./routes/item");
+
 var MemStore =  require("connect/lib/middleware/session/memory")
 var app = module.exports = express.createServer();
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/expenditure');
+var Users = require("./models/user");
 
 // Configuration
 app.configure(function(){
@@ -79,9 +87,29 @@ app.get("/profile", security.getProfile)
 app.get("/users", userRoutes.getUsers);
 app.get("/users/:id",userRoutes.getUser);
 app.post("/users", userRoutes.createUser);
-app.put("/users", userRoutes.updateUser);
-app.delete("/users", userRoutes.deleteUser);
+app.put("/users/:id", userRoutes.updateUser);
+app.delete("/users/:id", userRoutes.deleteUser);
 
+//units
+app.get("/units", unitRoutes.getUnits);
+app.get("/units/:id",unitRoutes.getUnit);
+app.post("/units", unitRoutes.createUnit);
+app.put("/units/:id", unitRoutes.updateUnit);
+app.delete("/units/:id", unitRoutes.deleteUnit);
+
+//category
+app.get("/categories", categoryRoutes.getCategories);
+app.get("/categories/:id",categoryRoutes.getCategory);
+app.post("/categories", categoryRoutes.createCategory);
+app.put("/categories/:id", categoryRoutes.updateCategory);
+app.delete("/categories/:id", categoryRoutes.deleteCategory);
+
+//items
+app.get("/items", itemRoutes.getItems);
+app.get("/items/:id", itemRoutes.getItem);
+app.post("/items", itemRoutes.createItem);
+app.put("/items/:id", itemRoutes.updateItem);
+app.delete("/items/:id", itemRoutes.deleteItem);
 
 
 //this is to test the sessions

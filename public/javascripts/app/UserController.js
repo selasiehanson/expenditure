@@ -18,7 +18,8 @@ function UserCtrl($scope, User){
 	}
 
 	$scope.addUser =  function (newUser){
-		if (newUser["id"]){
+		if (newUser["_id"]){
+			newUser["id"] =  newUser["_id"];
 			User.update(newUser, function (){
 				getUsers();
 				$scope.clear();
@@ -26,8 +27,8 @@ function UserCtrl($scope, User){
 			
 		}else {
 			var user =  angular.copy(newUser);
-			var _exp = new User(user);
-			_exp.$save(function (){
+			var theUser = new User(user);
+			theUser.$save(function (){
 				//fetch fresh items
 				getUsers();
 				$scope.clear();
@@ -41,7 +42,7 @@ function UserCtrl($scope, User){
 	 */
 	$scope.itemRemove =  function (index){
 		var user = $scope.users[index];
-		console.log(user)
+		user["id"] = user["_id"];
 		var _exp =  new User(user);
 		_exp.$delete(function (){
 			getUsers()
