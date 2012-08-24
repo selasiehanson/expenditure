@@ -2,7 +2,8 @@ function UserCtrl($scope, User){
 
 	window.ex = User;
 	$scope.users = [];
-	
+	var dt = null;
+
 	function getUsers(){
 		$scope.users = User.query()	
 	}
@@ -70,5 +71,21 @@ function UserCtrl($scope, User){
 
 	$scope.clear();
 	getUsers();
+
+	var makeDataTable = function(){
+		setTimeout(function (){
+			if (dt){
+				dt._fnClearTable()
+			}
+			window.dt = dt = $('#userstable').dataTable({
+				"sDom": "<'row'<'span6'l f r t i p > >",
+				"sPaginationType": "bootstrap",
+				"oLanguage": {
+					"sLengthMenu": "_MENU_ records per page"
+				}
+			});
+		}, 100);	
+	}
+	makeDataTable();
 
 }

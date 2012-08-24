@@ -39,30 +39,29 @@
  	<div class='span6'>
  		<fieldset>
  			<legend>Units</legend>
- 			<table class="table table-bordered table-striped">
-			<tr>
-				<th class='row-number-item'>#</th>
-				<th>Unit</th>
-				<th>Symbol</th>
-				<th>Description</th>
-				<th class='action-item'></th>
-			</tr>
-			<tr ng-repeat="unit in units">
-				<td> {{$index + 1}} </td>
-				<td> {{unit.name}}  </td> 
-				<td> {{unit.symbol}}  </td>
-				<td> {{unit.description}}   </td>
-				<td> 
-					<i ng-click="itemEdit(unit)" class='icon  icon-pencil action_icon'></i> 
-					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='2'><span class='pull-right'><strong> Totals : </strong></td>
-				<td colspan='3'>
-					<span class='label label-success'>	{{units.length}}  </span>
-				</td>
-			</tr>
+ 			<table class="table table-bordered table-striped"
+ 			 cellpadding="0" cellspacing="0" border="0"  id="unitstable">
+			<thead>
+				<tr>
+					<th class='row-number-item'>#</th>
+					<th>Unit</th>
+					<th>Symbol</th>
+					<th>Description</th>
+					<th class='action-item'></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="unit in units">
+					<td> {{$index + 1}} </td>
+					<td> {{unit.name}}  </td> 
+					<td> {{unit.symbol}}  </td>
+					<td> {{unit.description}}   </td>
+					<td> 
+						<i ng-click="itemEdit(unit)" class='icon  icon-pencil action_icon'></i> 
+						<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+					</td>
+				</tr>
+			</tbody>
 		</table>
  		</fieldset>
  	</div>

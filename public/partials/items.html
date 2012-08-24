@@ -42,30 +42,29 @@
  	<div class='span6'>
  		<fieldset>
  			<legend>Items</legend>
- 			<table class="table table-bordered table-striped">
-			<tr>
+ 			<table class="table table-bordered table-striped" cellpadding="0" cellspacing="0" border="0"  id="itemstable">
+			<thead>
+				<tr>
 				<th class='row-number-item'>#</th>
 				<th>Name</th>
 				<th>Unit</th>
 				<th>Category</th>
 				<th class='action-item'></th>
 			</tr>
-			<tr ng-repeat="item in items">
-				<td> {{$index + 1}} </td>
-				<td> {{item.name}}  </td> 
-				<td> {{item.unit.name}}  </td>
-				<td> {{item.category.name}}   </td>
-				<td> 
-					<i ng-click="itemEdit(item,$index)" class='icon  icon-pencil action_icon'></i> 
-					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='2'><span class='pull-right'> <strong> Totals : </strong> </td>
-				<td colspan='3'>
-					<span class='label label-success'>	{{items.length}}  </span>
-				</td>
-			</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items">
+					<td> {{$index + 1}} </td>
+					<td> {{item.name}}  </td> 
+					<td> {{item.unit.name}}  </td>
+					<td> {{item.category.name}}   </td>
+					<td> 
+						<i ng-click="itemEdit(item,$index)" class='icon  icon-pencil action_icon'></i> 
+						<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
+					</td>
+				</tr>
+			</tbody>
+			
 		</table>
  		</fieldset>
  	</div>

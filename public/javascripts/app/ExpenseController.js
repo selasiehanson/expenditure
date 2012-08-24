@@ -11,7 +11,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	$scope.expenses = [];
 	
 	function getExpenses(){
-		$scope.expenses = Expense.query()	
+		$scope.expenses = Expense.query();	
 	}
 	
 	function getItems(){
@@ -32,7 +32,8 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	$scope.addExpense =  function (newExpense){
 		var date = pDate.val();
 		newExpense.purchasedDate = date;
-		if (newExpense["id"]){
+		if (newExpense["_id"]){
+			newExpense["id"] = newExpense["_id"];
 			Expense.update(newExpense, function (){
 				getExpenses();
 				$scope.clear();
@@ -71,7 +72,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	 */
 	$scope.itemEdit =  function (expense, $index){
 		console.log(expense.purchasedDate)
-		var date = helper.formartDate(format,expense.purchasedDate);
+		var date = helper.formatDate(format,expense.purchasedDate);
 		pDate.val(date.toString());
 		$scope.newExpense = angular.copy( expense );
 		var itemIndex =  helper.getSelectIndex(expense.item, $scope.items);
@@ -89,7 +90,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	}
 
 	$scope.todaysDate =  function (){
-		var today  = helper.formartDate(format,new Date());
+		var today  = helper.formatDate(format,new Date());
 		pDate.val(today);
 	}
 
@@ -97,5 +98,17 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	getExpenses();
 	getItems();
 	$scope.todaysDate();
+
+	setTimeout(function (){
+		
+		$('#expensetable').dataTable({
+			"sDom": "<'row'<'span6'l f r t i p > >",
+			"sPaginationType": "bootstrap",
+			"oLanguage": {
+				"sLengthMenu": "_MENU_ records per page"
+			}
+		});
+	}, 100);
+	
 
 }

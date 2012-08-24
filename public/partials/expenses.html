@@ -50,7 +50,8 @@
  	<div class='span6'>
  		<fieldset>
  			<legend>History of Expenditure</legend>
- 			<table class="table table-bordered table-striped">
+ 			<table class="table table-bordered table-striped" cellpadding="0" cellspacing="0" border="0"  id="expensetable">
+			<thead>
 			<tr>
 				<th class='row-number-item'>#</th>
 				<th>Item</th>
@@ -58,8 +59,10 @@
 				<th>Unit</th>
 				<th>Price</th>
 				<th class='action-item'></th>
-				<!-- <th class='action-item'></th> -->
 			</tr>
+			</thead>
+			<tbody>
+			
 			<tr ng-repeat="expense in expenses">
 				<td> {{$index + 1}} </td>
 				<td> {{expense.item.name}}  </td> 
@@ -74,19 +77,8 @@
 					<i ng-click="itemEdit(expense)" class='icon  icon-pencil action_icon'></i> 
 					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
 				</td>
-				
 			</tr>
-			<tr>
-				<td colspan='2'> <span class='pull-right'>Total:</span> </td>
-				<td colspan='2'> <span class='pull-right'> 
-					<span class='label label-info'>
-						{{expenses.length}} 	
-					</span>  items purchased for 
-				</td>
-				<td colspan='2'>
-					<span class='label label-success'>	{{totalExpense()}} </span>
-				</td>
-			</tr>
+			</tbody>
 		</table>
  		</fieldset>
  	</div>

@@ -64,4 +64,15 @@ function UnitCtrl($scope, Unit){
 	$scope.clear();
 	getUnits();
 
+	setTimeout(function (){
+		
+		$('#unitstable').dataTable({
+			"sDom": "<'row'<'span6'l f r t i p > >",
+			"sPaginationType": "bootstrap",
+			"oLanguage": {
+				"sLengthMenu": "_MENU_ records per page"
+			}
+		});
+	}, 100);
+
 }

@@ -59,22 +59,29 @@ exports.createExpense = function (req, res){
 
 
 exports.updateExpense =  function (req, res){
-	//todo : add validation to all methods
-	var expense =  req.body;
-	var id =  req.params["id"];
-	var currentIndex = -1;
-	expenses.filter(function (n){
-		if(n["id"] == id){
-			currentIndex =  expenses.indexOf(n);
-		}
+	var id = mongoose.Types.ObjectId.fromString(req.params.id);
+	var _in = req.body;
+	var params  = {}
+	
+	params.name = _in.name;
+	
+	params.purchasedDate = _in.purchasedDate;
+	params.price = _in.price;
+	params.quantity = _in.quantity;
+	params.item = {
+		_id : _in.item._id,
+		name : _in.item.name,
+		unit : _in.item.unit.name
+	};
+	
+	params.updated_on = new Date();
+	
+	Expense.findByIdAndUpdate(id,params, function (err, doc){
+		if(!err)
+			res.send({message: "Expense updated sucessfully"});
+		else
+			console.log(err)
 	});
-
-	if(currentIndex > -1){
-		expenses[currentIndex] = expense;
-		res.send("Expense Updated");
-	}else {
-		res.send("No such entry exists for updating");
-	}
 
 };
 
