@@ -1,4 +1,4 @@
-var main = angular.module('expenditure',['expenseServices', 'myHelpers']).config(["$routeProvider", function ($routeProvider){
+var main = angular.module('expenditure',['expenseServices', 'expenseDirectives','myHelpers']).config(["$routeProvider", function ($routeProvider){
 	$routeProvider.when('/expenses', {
 		templateUrl : 'partials/expenses.html' , controller : ExpenseCtrl
 	}).when('/units', {

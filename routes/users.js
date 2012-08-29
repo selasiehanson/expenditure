@@ -2,7 +2,9 @@ var mongoose = require("mongoose");
 var User = require("../models/user");
 
 exports.getUsers = function(req, res){
-	User.find({},{id: 1, userName : 1, firstName : 1, lastName : 1},function(err, docs){
+	User.find().sort('-created_on')
+	.select({id: 1, userName : 1, firstName : 1, lastName : 1})
+	.exec(function (err, docs){
 		res.send(docs);
 	});
 }

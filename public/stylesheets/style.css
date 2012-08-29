@@ -84,3 +84,7 @@ footer p {
 .list_view li i{
 	padding-right : 5px;
 }
+
+.toolbar_div {
+	margin-bottom: 30px;
+}

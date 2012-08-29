@@ -1,8 +1,9 @@
 var mongoose = require("mongoose");
 var Category = require("../models/category");
+var Item =  require("../models/item");
 
 exports.getCategories = function (req, res){
-	Category.find({}, function (err, docs){
+	Category.find().sort('-created_on').select().exec( function (err, docs){
 		res.send(docs);
 	});
 }
@@ -36,10 +37,25 @@ exports.updateCategory = function (req, res){
 	params.name = _in.name;
 	params.description = _in.description || " ";
 	params.updated_at = new Date();
+	
 
 	Category.findByIdAndUpdate(id,params, function (err, doc){
-		if(!err)
+		if(!err){
+			
+			//update the Items as well,
+			var query = {
+				"category._id" :id
+			}; 
+			Item.find(query,function (err, docs){
+				
+				docs.forEach(function (doc){
+					doc.category.name = params.name;
+					doc.save();
+				});
+				
+			});		
 			res.send({message: "Category updated sucessfully"});
+		}
 		else
 			console.log(err)
 	});

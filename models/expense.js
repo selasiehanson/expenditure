@@ -7,9 +7,10 @@ var ExpenseSchema = new Schema ({
 	price : Number,
 	purchasedDate : Date, 
 	item : {
+		_id : ObjectId,
 		name : String,
 		unit : String,
-		_id : ObjectId
+		unitId : ObjectId
 	},
 	created_on : Date,
 	updated_at : Date

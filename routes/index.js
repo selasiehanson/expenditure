@@ -10,10 +10,14 @@ exports.index = function(req, res){
 
 
 //returns all expenses as an array
-exports.getExpenses =  function (res, res){
-	Expense.find({}, function (err, docs){
-		res.send(docs);
-	});
+exports.getExpenses =  function (req, res){
+	// Expense.find({}, function (err, docs){
+	// 	res.send(docs);
+	// });
+	// 
+	Expense.find().sort('-created_on').select().exec(function (err,docs){
+		res.send(docs)
+	})
 };
 
 //return the expense with a specific id
@@ -33,15 +37,14 @@ exports.createExpense = function (req, res){
 	var params = {};
 	var date =  new Date();
 
-	params.name = _in.name;
-	
-	params.purchasedDate = _in.purchasedDate;
+	params.purchasedDate = new Date(_in.purchasedDate);
 	params.price = _in.price;
 	params.quantity = _in.quantity;
 	params.item = {
 		_id : _in.item._id,
 		name : _in.item.name,
-		unit : _in.item.unit.name
+		unit : _in.item.unit.name,
+		unitId : _in.item.unit._id
 	};
 	params.created_on = date;
 	params.updated_on = date;
@@ -62,8 +65,6 @@ exports.updateExpense =  function (req, res){
 	var id = mongoose.Types.ObjectId.fromString(req.params.id);
 	var _in = req.body;
 	var params  = {}
-	
-	params.name = _in.name;
 	
 	params.purchasedDate = _in.purchasedDate;
 	params.price = _in.price;

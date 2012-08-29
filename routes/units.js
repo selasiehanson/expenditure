@@ -1,7 +1,9 @@
 var mongoose = require("mongoose");
 var Unit = require("../models/unit");
+var Item  = require("../models/item");
+var Expense = require("../models/expense");
 exports.getUnits =  function (req, res){
-	Unit.find({},function (err, docs){
+	Unit.find().sort('-created_on').select().exec(function (err, docs){
 		res.send(docs);
 	})	
 }
@@ -38,15 +40,45 @@ exports.updateUnit =  function(req, res){
 	params.description = _in.description || " ";
 	params.updated_at = new Date();
 
+
+	//todo : update item as well as expense.item.unit
 	Unit.findByIdAndUpdate(id,params, function (err, doc){
-		if(!err)
+		if(!err){
+			var q1 = {
+				"unit._id" : id
+			};
+
+			//update all items 
+			Item.find(q1, function (err, docs){	
+				docs.forEach(function (doc){
+					doc.unit.name = params.name;
+					doc.save();
+				});
+			});
+
+			
+			var q2 = {
+				"item.unitId" : id
+			};
+			//update all expenses
+			Expense.find(q2, function (err, docs){
+				docs.forEach(function (doc){
+					doc.item.unit  = params.name;
+					doc.save()
+				});
+			});
+
 			res.send({message: "Unit updated sucessfully"});
+
+		}
 		else
 			console.log(err)
 	});
 }
 
 exports.deleteUnit = function (req, res){
+	//todo : check to make sure no item is using this unit.
+	
 	var id = mongoose.Types.ObjectId.fromString(req.params.id);
 	Unit.findByIdAndRemove(id, function (err){
 		//todo : check for error

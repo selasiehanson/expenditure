@@ -45,3 +45,9 @@ table.table thead .sorting_desc_disabled { background: url('images/sort_desc_dis
 table.dataTable th:active {
 	outline: none;
 }
+
+table.table tr.row_selected td {
+	background-color: #0074FF;
+	color: white;
+	font-weight: bold;
+}

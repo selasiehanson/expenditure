@@ -1,8 +1,9 @@
 var mongoose = require("mongoose");
 var Item = require("../models/item");
+var Expense =  require("../models/expense");
 
 exports.getItems = function (req, res){
-	Item.find({}, function(err, docs){
+	Item.find().sort('-created_on').select().exec(function(err, docs){
 		res.send(docs);
 	})
 }
@@ -61,12 +62,22 @@ exports.updateItem = function(req, res){
 	params.category.name = _in.category.name;
 	params.category._id = _in.category._id;
 
-	params.updated_on = new Date();;
+	params.updated_on = new Date();
 	console.log(params);
 
 	Item.findByIdAndUpdate(id,params, function (err, doc){
-		if(!err)
+		if(!err){
+			var q1 = {
+				"item._id" : id
+			};
+			Expense.find(q1, function (err, docs){
+				docs.forEach(function (doc){
+					doc.item.name = params.name;
+					doc.save();
+				});
+			});
 			res.send({message: "Item updated sucessfully"});
+		}
 		else
 			console.log(err)
 	});
