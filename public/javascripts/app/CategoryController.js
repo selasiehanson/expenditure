@@ -3,7 +3,9 @@ function CategoryCtrl ($scope, Category){
 	$scope.categories = [];
 	
 	function getCategories(){
-		$scope.categories = Category.query()	
+		Category.query(function (res){
+			$scope.categories = angular.copy(res);
+		});	
 	}
 
 	$scope.addCategory =  function (newCategory){
@@ -32,8 +34,13 @@ function CategoryCtrl ($scope, Category){
 	 * itemRemove removes an item from the collection
 	 * @param  {int} index 
 	 */
-	$scope.itemRemove =  function (index){
-		var category = $scope.categories[index];
+	$scope.itemRemove =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to delete");
+			return;
+		}
+
+		var category = $scope.itemToEdit;
 		category["id"] = category["_id"];
 		var _category =  new Category(category);
 		_category.$delete(function (){
@@ -48,8 +55,13 @@ function CategoryCtrl ($scope, Category){
 	 * @param  {Object} category [the object to be edited]
 	 * @return {[type]}
 	 */
-	$scope.itemEdit =  function (category){
-		$scope.newCategory = angular.copy(category);
+	$scope.itemEdit =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to edit");
+			return;
+		}
+
+		$scope.newCategory = angular.copy($scope.itemToEdit);
 		$scope.title = "Update Category";
 		$scope.statusText = "Update Category";
 	}
@@ -62,15 +74,38 @@ function CategoryCtrl ($scope, Category){
 
 	$scope.clear();
 	getCategories();
+	$scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {            
+        $(nRow).bind('click', function() {
+        	// $(this).addClass('row_selected');
+         //    $scope.$apply(function() {
+         //        $scope.someClickHandler(aData);
+         //    });
+        	window.tt = $(this);
+            if ( $(this).hasClass('row_selected') ) {
+	            $(this).removeClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(null);
+	            });
+	        }
+	        else {
+	            $(this).parents("table").find("tr").removeClass("row_selected")
+	            $(this).addClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(aData);
+	            });
+	        }
+	    });
+        return nRow;
+	};
 
-	setTimeout(function (){
-		
-		$('#categoriestable').dataTable({
-			"sDom": "<'row'<'span6'l f r t i p > >",
-			"sPaginationType": "bootstrap",
-			"oLanguage": {
-				"sLengthMenu": "_MENU_ records per page"
-			}
-		});
-	}, 100);
+    $scope.someClickHandler = function(data) {
+    	console.log(data)
+        $scope.itemToEdit = data;
+    };
+
+	$scope.columnDefs = [
+		// { "bSortable": false, "aTargets": [ 0 ] } ,
+        { "mDataProp": "name", "aTargets":[0]},
+        { "mDataProp": "description", "aTargets":[1] }
+    ]; 
 }

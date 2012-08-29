@@ -12,8 +12,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	
 	function getExpenses(){
 		Expense.query(function (res){
-			$scope.expenses = res;
-			$scope.sampleProductCategories = angular.copy(res);
+			$scope.expenses = angular.copy(res);
 		});	
 	}
 	
@@ -58,7 +57,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	 * itemRemove removes an item from the collection
 	 * @param  {int} index 
 	 */
-	$scope.itemRemove =  function (index){
+	$scope.itemRemove =  function (){
 		//var expense = $scope.expenses[index];
 		if(!$scope.itemToEdit){
 			alert("Please select a row to delete");
@@ -145,11 +144,11 @@ function ExpenseCtrl($scope, Expense, $http, helper){
     };
 
 	$scope.columnDefs = [
-		{ "bSortable": false, "aTargets": [ 0 ] } ,
-        { "mDataProp": "item.name", "aTargets":[1]},
-        { "mDataProp": "quantity", "aTargets":[2] },
-        { "mDataProp": "item.unit", "aTargets":[3] },
-        { "mDataProp": "price", "aTargets":[4] }
+		// { "bSortable": false, "aTargets": [ 0 ] } ,
+        { "mDataProp": "item.name", "aTargets":[0]},
+        { "mDataProp": "quantity", "aTargets":[1] },
+        { "mDataProp": "item.unit", "aTargets":[2] },
+        { "mDataProp": "price", "aTargets":[3] }
     ]; 
 
 }

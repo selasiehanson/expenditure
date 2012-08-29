@@ -8,7 +8,9 @@ function ItemCtrl($scope, Item , $http, helper){
 	}
 	
 	function getItems(){
-		$scope.items = Item.query()	
+		Item.query(function (res){
+			$scope.items = angular.copy(res);
+		});	
 	}
 	
 	function getUnits(){
@@ -46,8 +48,13 @@ function ItemCtrl($scope, Item , $http, helper){
 	 * itemRemove removes an item from the collection
 	 * @param  {int} index 
 	 */
-	$scope.itemRemove =  function (index){
-		var item = $scope.items[index];
+	$scope.itemRemove =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to delete");
+			return;
+		}
+
+		var item = $scope.itemToEdit;
 		item["id"] = item["_id"];
 		var _item =  new Item(item);
 		_item.$delete(function (){
@@ -62,10 +69,17 @@ function ItemCtrl($scope, Item , $http, helper){
 	 * @param  {Object} item [the object to be edited]
 	 * @return {[type]}
 	 */
-	$scope.itemEdit =  function (item,$index){
-		// console.log($index)
-		$scope.newItem = $scope.items[$index];
+	$scope.itemEdit =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to edit");
+			return;
+		}
+		
+		var item = $scope.itemToEdit;
+		$scope.newItem = angular.copy(item);
+		console.log(item)
 		var catIndex = helper.getSelectIndex(item.category,$scope.categories);
+		
 		$scope.newItem.category = $scope.categories[catIndex];
 		var unitIndex = helper.getSelectIndex(item.unit, $scope.units);
 		$scope.newItem.unit = $scope.units[unitIndex];
@@ -87,15 +101,41 @@ function ItemCtrl($scope, Item , $http, helper){
 	getUnits();
 	getCategories();
 
-	setTimeout(function (){
-		$("#itemstable").dataTable({
-			"sDom": "<'row'<'span6'l f r t i p > >",
-			"sPaginationType": "bootstrap",
-			"oLanguage": {
-				"sLengthMenu": "_MENU_ records per page"
-			}
-		});
-	}, 100);
+	$scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {            
+        $(nRow).bind('click', function() {
+        	// $(this).addClass('row_selected');
+         //    $scope.$apply(function() {
+         //        $scope.someClickHandler(aData);
+         //    });
+        	window.tt = $(this);
+            if ( $(this).hasClass('row_selected') ) {
+	            $(this).removeClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(null);
+	            });
+	        }
+	        else {
+	            $(this).parents("table").find("tr").removeClass("row_selected")
+	            $(this).addClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(aData);
+	            });
+	        }
+	    });
+        return nRow;
+    };
+
+    $scope.someClickHandler = function(data) {
+    	console.log(data)
+        $scope.itemToEdit = data;
+    };
+
+	$scope.columnDefs = [
+		// { "bSortable": false, "aTargets": [ 0 ] } ,
+        { "mDataProp": "name", "aTargets":[0]},
+        { "mDataProp": "unit.name", "aTargets":[1] },
+        { "mDataProp": "category.name", "aTargets":[2] }
+    ]; 
 	
 
 }

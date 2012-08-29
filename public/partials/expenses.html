@@ -54,44 +54,14 @@
  				<a class='btn ' ng-click='itemEdit()'> <i class='icon icon-pencil'></i>  Edit</a>
  				<a class='btn ' ng-click='itemRemove()'> <i class='icon icon icon-remove'></i> Delete</a>
  			</div>
- 			<!-- <table class="table table-bordered table-striped" cellpadding="0" cellspacing="0" border="0"  id="expensetable">
-			<thead>
-			<tr>
-				<th class='row-number-item'>#</th>
-				<th>Item</th>
-				<th>Quantity</th>
-				<th>Unit</th>
-				<th>Price</th>
-				<th class='action-item'></th>
-			</tr>
-			</thead>
-			<tbody>
-			
-			<tr ng-repeat="expense in expenses">
-				<td> {{$index + 1}} </td>
-				<td> {{expense.item.name}}  </td> 
-				<td> 
-					<span class='label label-info'> {{expense.quantity}}  </span>
-				</td>
-				<td> {{expense.item.unit}}   </td>
-				<td> 
-					<span class='label label-success'>{{expense.price }}</span>  
-				</td>
-				<td> 
-					<i ng-click="itemEdit(expense)" class='icon  icon-pencil action_icon'></i> 
-					<i ng-click="itemRemove($index)" class='icon icon-remove action_icon'></i>
-				</td>
-			</tr>
-			</tbody>
-		</table> -->
 		<table my-table
-            aa-data="sampleProductCategories"
+            aa-data="expenses"
         	ao-column-defs="columnDefs"
         	fn-row-callback="myCallback"
             class='table table-striped table-bordered'>
             <thead>
             <tr>
-            	<th>#</th>
+            	<!-- <th>#</th> -->
                 <th>Item</th>
 				<th>Quantity</th>
 				<th>Unit</th>

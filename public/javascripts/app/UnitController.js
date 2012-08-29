@@ -4,7 +4,9 @@ function UnitCtrl($scope, Unit){
 	$scope.units = [];
 	
 	function getUnits(){
-		$scope.units = Unit.query();
+		Unit.query(function (res){
+			$scope.units = angular.copy(res);
+		});
 	}
 	
 	$scope.addUnit =  function (newUnit){
@@ -33,8 +35,13 @@ function UnitCtrl($scope, Unit){
 	 * itemRemove removes an item from the collection
 	 * @param  {int} index 
 	 */
-	$scope.itemRemove =  function (index){
-		var unit = $scope.units[index];
+	$scope.itemRemove =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to delete");
+			return;
+		}
+
+		var unit = $scope.itemToEdit;
 		unit["id"] = unit["_id"];
 		var _unit =  new Unit(unit);
 		_unit.$delete(function (){
@@ -49,8 +56,13 @@ function UnitCtrl($scope, Unit){
 	 * @param  {Object} unit [the object to be edited]
 	 * @return {[type]}
 	 */
-	$scope.itemEdit =  function (unit){
-		$scope.newUnit = angular.copy(unit);
+	$scope.itemEdit =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to edit");
+			return;
+		}
+		
+		$scope.newUnit = angular.copy($scope.itemToEdit);
 		$scope.title = "Update Unit";
 		$scope.statusText = "Update Unit";
 	}
@@ -64,4 +76,39 @@ function UnitCtrl($scope, Unit){
 	$scope.clear();
 	getUnits();
 
+	$scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {            
+        $(nRow).bind('click', function() {
+        	// $(this).addClass('row_selected');
+         //    $scope.$apply(function() {
+         //        $scope.someClickHandler(aData);
+         //    });
+        	window.tt = $(this);
+            if ( $(this).hasClass('row_selected') ) {
+	            $(this).removeClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(null);
+	            });
+	        }
+	        else {
+	            $(this).parents("table").find("tr").removeClass("row_selected")
+	            $(this).addClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(aData);
+	            });
+	        }
+	    });
+        return nRow;
+    };
+
+    $scope.someClickHandler = function(data) {
+    	console.log(data)
+        $scope.itemToEdit = data;
+    };
+
+	$scope.columnDefs = [
+		// { "bSortable": false, "aTargets": [ 0 ] } ,
+        { "mDataProp": "name", "aTargets":[0]},
+        { "mDataProp": "symbol", "aTargets":[1] },
+        { "mDataProp": "description", "aTargets":[2] }
+    ]; 
 }

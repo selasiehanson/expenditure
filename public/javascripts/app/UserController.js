@@ -5,7 +5,9 @@ function UserCtrl($scope, User){
 	var dt = null;
 
 	function getUsers(){
-		$scope.users = User.query()	
+		User.query(function (res){
+			$scope.users = angular.copy(res);
+		});	
 	}
 	
 	$scope.totalUser = function (){
@@ -41,8 +43,13 @@ function UserCtrl($scope, User){
 	 * itemRemove removes an item from the collection
 	 * @param  {int} index 
 	 */
-	$scope.itemRemove =  function (index){
-		var user = $scope.users[index];
+	$scope.itemRemove =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to delete");
+			return;
+		}
+
+		var user = $scope.itemToEdit;
 		user["id"] = user["_id"];
 		var _exp =  new User(user);
 		_exp.$delete(function (){
@@ -57,8 +64,13 @@ function UserCtrl($scope, User){
 	 * @param  {Object} user [the object to be edited]
 	 * @return {[type]}
 	 */
-	$scope.itemEdit =  function (user){
-		$scope.newUser = angular.copy(user);
+	$scope.itemEdit =  function (){
+		if(!$scope.itemToEdit){
+			alert("Please select a row to edit");
+			return;
+		}
+
+		$scope.newUser = angular.copy($scope.itemToEdit);
 		$scope.title = "Update User";
 		$scope.statusText = "Update User";
 	}
@@ -72,20 +84,39 @@ function UserCtrl($scope, User){
 	$scope.clear();
 	getUsers();
 
-	var makeDataTable = function(){
-		setTimeout(function (){
-			if (dt){
-				dt._fnClearTable()
-			}
-			window.dt = dt = $('#userstable').dataTable({
-				"sDom": "<'row'<'span6'l f r t i p > >",
-				"sPaginationType": "bootstrap",
-				"oLanguage": {
-					"sLengthMenu": "_MENU_ records per page"
-				}
-			});
-		}, 100);	
-	}
-	makeDataTable();
+	$scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {            
+        $(nRow).bind('click', function() {
+        	// $(this).addClass('row_selected');
+         //    $scope.$apply(function() {
+         //        $scope.someClickHandler(aData);
+         //    });
+        	window.tt = $(this);
+            if ( $(this).hasClass('row_selected') ) {
+	            $(this).removeClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(null);
+	            });
+	        }
+	        else {
+	            $(this).parents("table").find("tr").removeClass("row_selected")
+	            $(this).addClass('row_selected');
+	            $scope.$apply(function() {
+	                $scope.someClickHandler(aData);
+	            });
+	        }
+	    });
+        return nRow;
+    };
 
+    $scope.someClickHandler = function(data) {
+    	console.log(data)
+        $scope.itemToEdit = data;
+    };
+
+	$scope.columnDefs = [
+		// { "bSortable": false, "aTargets": [ 0 ] } ,
+        { "mDataProp": "firstName", "aTargets":[0]},
+        { "mDataProp": "lastName", "aTargets":[1] },
+        { "mDataProp": "userName", "aTargets":[2] }
+    ]; 
 }
