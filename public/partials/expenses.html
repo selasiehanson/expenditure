@@ -1,33 +1,37 @@
 <div class="row-fluid" ng-controller="ExpenseCtrl">
-    <div class="span5">
+<div class="row-fluid" >
+    <div class="span8">
       	<form class="form-horizontal cust-form">
 		  	<fieldset>
 			    <legend> <span> {{title}}</span> </legend>
 			    <div class="control-group">
 			      <label class="control-label" for="item" >Item:</label>
 			      <div class="controls">
-			        <select class='span3' ng-model="newExpense.item" id="item" 
+			        <select class="input-xlarge" ng-model="newExpense.item" id="item" 
 			        ng-options='item.name for item in items'></select>
+                      <span class="help-inline"></span>
 			      </div>
 			    </div>
 			    <div class="control-group">
 			      <label class="control-label" for="quantity" >Quantity:</label>
 			      <div class="controls">
-			        <input type="number" class="span3" ng-model="newExpense.quantity" id="quantity">
+			        <input type="number" class="input-xlarge" ng-model="newExpense.quantity" id="quantity">
+                      <span class="help-inline">(should be a number)</span>
 			        </div>
 			    </div>
 			    
 			    <div class="control-group">
 			      <label class="control-label" for="price">Price:</label>
 			      <div class="controls">
-			        <input type="number" class="span3" ng-model="newExpense.price" id="price">
+			        <input type="number" class="input-xlarge" ng-model="newExpense.price" id="price">
+                      <span class="help-inline">(should be a number)</span>
 			      </div>
 			    </div>
 			    <div class='control-group'>
 			    	<label class="control-label" for="purchasedDate">Date of Purchase:</label>
 			    	<div class="controls">
 			    		<div class="input-append date" id="dp3" data-date="" data-date-format="dd-mm-yyyy">
-							<input ng-model="newExpense.purchasedDate" id="purchasedDate" class="span2" size="16" type="text"  readonly=""><span class="add-on"><i class="icon-th"></i></span>
+							<input ng-model="newExpense.purchasedDate" id="purchasedDate" class="span3" size="16" type="text"  readonly=""><span class="add-on"><i class="icon-th"></i></span>
 					  </div>
 			    	</div>
 			    	
@@ -47,12 +51,16 @@
 		  	</fieldset>
 		</form>
  	</div>
- 	<div class='span6'>
+ 
+</div><!--/row-->
+<div  class="row-fluid">
+    	<div class='span10'>
  		<fieldset>
  			<legend>History of Expenditure</legend>
+        </fieldset>
  			<div class='toolbar_div'>
- 				<a class='btn ' ng-click='itemEdit()'> <i class='icon icon-pencil'></i>  Edit</a>
- 				<a class='btn ' ng-click='itemRemove()'> <i class='icon icon icon-remove'></i> Delete</a>
+ 				<a class='btn btn-primary' ng-click='itemEdit()'> <i class='icon icon-pencil'></i>  Edit</a>
+ 				<a class='btn btn-danger' ng-click='itemRemove()'> <i class='icon icon icon-remove'></i> Delete</a>
  			</div>
 		<table my-table
             aa-data="expenses"
@@ -69,6 +77,8 @@
             </tr>
             </thead>
         </table>
- 		</fieldset>
+ 		
  	</div>
-</div><!--/row-->
+</div>
+
+</div>

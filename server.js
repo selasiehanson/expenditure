@@ -1,7 +1,8 @@
 /**
  * Module dependencies.
  */
-var express = require('express')
+var express = require('express');
+var fs = require("fs");
 //routes
 var routes = require('./routes');
 var security =  require("./routes/security");
@@ -29,23 +30,44 @@ app.configure(function(){
   app.use(express.session(
     {
       secret : "some secret",
-      store : MemStore ({
-                reapInterval : 60000 * 10
-              })
+      store : MemStore ({ reapInterval : 60000 * 10})
     })
   );
   app.use(app.router);
+
 });
 
 // disable layout
 app.set("view options", {layout: false});
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+  app.use(express.errorHandler(
+  { 
+    dumpExceptions: true, 
+    showStack: true ,
+  }));
+  
+
+});// end of configure
+
+function myLogger(err, req, res, next) {
+    var content = "[[ERROR]]--"+(new Date()).toString() + "\n"+ err.stack + "\n\n";
+    console.log(content);
+    fs.open( __dirname + '/log/error_log', 'a', 666, function( e, id ) {
+      fs.write( id, content, null, 'utf8', function(){
+        fs.close(id, function(){
+          
+        });
+      });
+    });
+    next(err);
+    res.send(500, { error: content});
+    
+}
 
 app.configure('production', function(){
   app.use(express.errorHandler());
+  //app.use(myLogger);
 });
 
 //make a custom html template
@@ -117,6 +139,7 @@ app.get("/page", requiresLogin, function (req, res){
   res.send("Welcome to page")
 });
 
-app.listen(3000, function(){
+
+app.listen(process.env.PORT || 3030 , function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

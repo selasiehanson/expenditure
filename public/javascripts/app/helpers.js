@@ -21,7 +21,7 @@ angular.module('myHelpers', []).
 	    		break;
 	    		default: break;
 	    	}
-	    	console.log(out)
+	    	//console.log(out)
 	    	return out;
 	    }
     };

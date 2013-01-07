@@ -1,6 +1,8 @@
 var mongoose = require("mongoose");
 var Expense = require("../models/expense");
+var helpers = require("../lib/helpers");
 
+var dateFormat = "dd-mm-yyyy";
 /*
  * GET home page.
  */
@@ -33,11 +35,11 @@ exports.getExpense =  function(req, res){
 //add a new expense to the collection
 exports.createExpense = function (req, res){
 	var _in  = req.body;
-	console.log(_in);
+	//console.log(_in);
 	var params = {};
 	var date =  new Date();
 
-	params.purchasedDate = new Date(_in.purchasedDate);
+	params.purchasedDate = helpers.parseDate(_in.purchasedDate,dateFormat);
 	params.price = _in.price;
 	params.quantity = _in.quantity;
 	params.item = {
@@ -49,7 +51,7 @@ exports.createExpense = function (req, res){
 	params.created_on = date;
 	params.updated_on = date;
 
-	console.log(params);
+	//console.log(params);
 	var expense = new Expense(params);
 	expense.save(function (err, doc){
 		if (err)
@@ -66,7 +68,7 @@ exports.updateExpense =  function (req, res){
 	var _in = req.body;
 	var params  = {}
 	
-	params.purchasedDate = _in.purchasedDate;
+	params.purchasedDate =  helpers.parseDate(_in.purchasedDate,dateFormat);
 	params.price = _in.price;
 	params.quantity = _in.quantity;
 	params.item = {

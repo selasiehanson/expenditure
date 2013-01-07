@@ -1,0 +1,52 @@
+[[ERROR]]--Thu Aug 30 2012 20:25:33 GMT+0000 (GMT Standard Time)
+ReferenceError: expenses is not defined
+    at exports.getExpense (e:\WORK\Javascript\node\expenditure\routes\index.js:28:16)
+    at callbacks (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:272:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:246:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:243:11)
+    at pass (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:253:5)
+    at Router._dispatch (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:280:5)
+    at Object.middleware [as handle] (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:45:10)
+    at next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\http.js:204:15)
+    at store.get.next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:322:9)
+    at e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:337:9
+
+[[ERROR]]--Thu Aug 30 2012 20:29:11 GMT+0000 (GMT Standard Time)
+ReferenceError: expenses is not defined
+    at exports.getExpense (e:\WORK\Javascript\node\expenditure\routes\index.js:28:16)
+    at callbacks (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:272:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:246:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:243:11)
+    at pass (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:253:5)
+    at Router._dispatch (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:280:5)
+    at Object.middleware [as handle] (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:45:10)
+    at next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\http.js:204:15)
+    at store.get.next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:322:9)
+    at e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:341:9
+
+[[ERROR]]--Thu Aug 30 2012 20:31:47 GMT+0000 (GMT Standard Time)
+ReferenceError: expenses is not defined
+    at exports.getExpense (e:\WORK\Javascript\node\expenditure\routes\index.js:28:16)
+    at callbacks (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:272:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:246:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:243:11)
+    at pass (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:253:5)
+    at Router._dispatch (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:280:5)
+    at Object.middleware [as handle] (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:45:10)
+    at next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\http.js:204:15)
+    at store.get.next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:322:9)
+    at e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:337:9
+
+[[ERROR]]--Thu Aug 30 2012 20:31:53 GMT+0000 (GMT Standard Time)
+ReferenceError: expenses is not defined
+    at exports.getExpense (e:\WORK\Javascript\node\expenditure\routes\index.js:28:16)
+    at callbacks (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:272:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:246:11)
+    at param (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:243:11)
+    at pass (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:253:5)
+    at Router._dispatch (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:280:5)
+    at Object.middleware [as handle] (e:\WORK\Javascript\node\expenditure\node_modules\express\lib\router\index.js:45:10)
+    at next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\http.js:204:15)
+    at store.get.next (e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:322:9)
+    at e:\WORK\Javascript\node\expenditure\node_modules\express\node_modules\connect\lib\middleware\session.js:341:9
+

@@ -1,9 +1,13 @@
-function ExpenseCtrl($scope, Expense, $http, helper){
+function ExpenseCtrl($scope, Expense, $http, helper, $filter){
 
-	var format = "dd-mm-yyyy";
+	//this corresponds to the dd-mm-yyyyy. Angular expects the 
+	//month to be MM and not mm 
+	
+	var format = "dd-MM-yyyy"; 
+
 	var pDate = $("#dp3").find("input");
 	$("#dp3").datepicker({
-		format : format
+		format : "dd-mm-yyyy"
 	});
 	
 
@@ -86,13 +90,15 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 		}
 
 		var expense = $scope.itemToEdit;
-		console.log(expense.purchasedDate)
-		var date = helper.formatDate(format,expense.purchasedDate);
-		pDate.val(date.toString());
+		
 		$scope.newExpense = angular.copy( expense );
 		var itemIndex =  helper.getSelectIndex(expense.item, $scope.items);
 		$scope.newExpense.item = $scope.items[itemIndex];
-
+		console.log("purchasedDate before " + $scope.newExpense.purchasedDate)
+		var date = new Date($scope.newExpense.purchasedDate);
+		$scope.newExpense.purchasedDate = $filter('date')(date, format);
+		//pDate.val(date);
+		console.log("purchasedDate after " + $scope.newExpense.purchasedDate)
 		$scope.statusText = "Update Expense";
 		$scope.title = "Update Expense";
 	}
@@ -105,7 +111,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	}
 
 	$scope.todaysDate =  function (){
-		var today  = helper.formatDate(format,new Date());
+		var today = $filter('date')(new Date(), format)
 		pDate.val(today);
 	}
 
@@ -113,6 +119,7 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	getExpenses();
 	getItems();
 	$scope.todaysDate();
+
 
     $scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {            
         $(nRow).bind('click', function() {
@@ -146,9 +153,23 @@ function ExpenseCtrl($scope, Expense, $http, helper){
 	$scope.columnDefs = [
 		// { "bSortable": false, "aTargets": [ 0 ] } ,
         { "mDataProp": "item.name", "aTargets":[0]},
-        { "mDataProp": "quantity", "aTargets":[1] },
+        {
+        	"mDataProp": "quantity", 
+        	"aTargets":[1] , 
+        	// "fnRender": function ( oObj, sVal ) {
+         //           return "<span class='badge badge-success'>"+ sVal+"</span>";
+         //    },
+        },
         { "mDataProp": "item.unit", "aTargets":[2] },
-        { "mDataProp": "price", "aTargets":[3] }
+        { 
+        	"mDataProp": "price", 
+        	"aTargets":[3] ,
+        	// "fnRender": function ( oObj, sVal ) {
+        	// 	// console.log(oObj)
+        	// 	var x = angular.copy(sVal)
+         //        return "<span class='badge badge-success'>"+ x +"</span>";
+         //    },
+        }
     ]; 
 
 }

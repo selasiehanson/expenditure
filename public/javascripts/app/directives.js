@@ -16,7 +16,7 @@ angular.module("expenseDirectives",[]).
                     "bFilter": true,
                     "bInfo": true,
                     "bDestroy": true,
-                    "sDom": "<'row'<'span7'l f r t i p > >",
+                    "sDom": "<'row'<'span10'l f r t i p > >",
 					"sPaginationType": "bootstrap",
 					"oLanguage": {
 						"sLengthMenu": "_MENU_ records per page"

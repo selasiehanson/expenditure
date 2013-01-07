@@ -3,7 +3,10 @@ body {
 	padding-bottom: 40px;
 	/*background: url("../images/fabric_plaid.png");*/
 }
-
+.help-inline {
+    font-style: italic;
+    font-size: 11px;
+}
 .sidebar-nav {
 	padding: 9px 0;
 }
@@ -18,7 +21,7 @@ body {
 }
 
 .cust-form {
-	border : 1px solid #EEE;
+	/*border : 1px solid #EEE;*/
 }
 
 legend span {
@@ -87,4 +90,5 @@ footer p {
 
 .toolbar_div {
 	margin-bottom: 30px;
+    margin-top: 10px;
 }

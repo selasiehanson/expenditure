@@ -1,5 +1,6 @@
-<div class="row-fluid" ng-controller="ItemCtrl">
-    <div class="span5">
+<div ng-controller="ItemCtrl">
+	<div class="row-fluid" >
+    	<div class="span8">
       	<form class="form-horizontal cust-form">
 		  	<fieldset>
 			    <legend> <span> {{title}} </span> </legend>
@@ -12,14 +13,14 @@
 			    <div class="control-group">
 			      <label class="control-label" for="symbol" >Unit:</label>
 			      <div class="controls">
-			        <select class="span3"  ng-model="newItem.unit" id="unit" 
+			        <select class="input-xlarge" ng-model="newItem.unit" id="unit" 
 			        	ng-options='unit.name for unit in units'></select>
 			      </div>
 			    </div>
 			    <div class="control-group">
 			      <label class="control-label" for="description">Category:</label>
 			      <div class="controls">
-			        <select class="span3"  ng-model="newItem.category" id="category" 
+			        <select class="input-xlarge" ng-model="newItem.category" id="category" 
 			        	ng-options='cat.name for cat in categories'>
 			        </select>
 			      </div>
@@ -38,13 +39,16 @@
 			    </div>
 		  	</fieldset>
 		</form>
- 	</div>
- 	<div class='span6'>
+ 		</div>
+ 	</div><!--/row-->
+ 	<div class='row-fluid'>
+ 		<div class='span6'>
  		<fieldset>
  			<legend>Items</legend>
+             </fieldset>
  			<div class='toolbar_div'>
- 				<a class='btn ' ng-click='itemEdit()'> <i class='icon icon-pencil'></i>  Edit</a>
- 				<a class='btn ' ng-click='itemRemove()'> <i class='icon icon icon-remove'></i> Delete</a>
+ 				<a class='btn btn-primary' ng-click='itemEdit()'> <i class='icon icon-pencil'></i>  Edit</a>
+ 				<a class='btn btn-danger' ng-click='itemRemove()'> <i class='icon icon icon-remove'></i> Delete</a>
  			</div>
  			<table my-table
 	            aa-data="items"
@@ -60,6 +64,8 @@
 	            </tr>
 	            </thead>
 	        </table>
- 		</fieldset>
- 	</div>
- </div><!--/row-->
+ 		
+ 		</div>
+ 	</div><!--/row-->
+</div>
+
